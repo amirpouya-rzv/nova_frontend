@@ -1,9 +1,12 @@
 import React from 'react';
+import Landing from './Landing/page';
+import Whattodo from './Landing/what_todo/page';
 
 const page = () => {
     return (
      <div>
-      Landing Page
+<Landing/>
+<Whattodo/>
      </div>
         
     );

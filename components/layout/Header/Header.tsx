@@ -39,7 +39,7 @@ useEscapeKey(isOpen, () => setIsOpen(false));
       <div
         onClick={() => setIsOpen(false)}
         aria-hidden
-        className={`fixed inset-0 z-40 bg-foreground/20 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-foreground/75 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
@@ -55,7 +55,7 @@ useEscapeKey(isOpen, () => setIsOpen(false));
             className={`relative overflow-hidden rounded-xl border transition-all duration-300 md:rounded-full ${
               scrolled
                 ? "border-border bg-background/75 shadow-lg shadow-foreground/5 backdrop-blur-xl"
-                : "border-border/60 bg-background/30 backdrop-blur-xs"
+                : "border-border/60  backdrop-blur-xs"
             }`}
           >
             <div

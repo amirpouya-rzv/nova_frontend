@@ -5,9 +5,13 @@ import StoreProvider from "@/components/providers/StoreProvider";
 import { themeScript } from "@/constants/themeScript";
 import "./globals.css";
 import localFont from "next/font/local";
+import { Geist, Inter } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "نام سایت",
+  title: "NOVA",
   description: "توضیحات سایت",
 };
 
@@ -29,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning>
+    <html lang="fa" dir="rtl" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

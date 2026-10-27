@@ -31,7 +31,7 @@ export default function MobileNavigation({ isOpen }: MobileNavigationProps) {
       style={{
         clipPath: isOpen ? "inset(0 0 0 0 round 16px)" : "inset(0 0 100% 0 round 16px)",
       }}
-      className={`absolute inset-x-0 top-full mt-2 rounded-2xl border bg-background/95 shadow-2xl shadow-foreground/10 backdrop-blur-xl transition-[clip-path,opacity,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
+      className={`absolute inset-x-0 top-full mt-2 rounded-2xl border bg-background/95  shadow-2xl shadow-foreground/10 backdrop-blur-sm transition-[clip-path,opacity,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
         isOpen
           ? "visible border-border opacity-100"
           : "pointer-events-none invisible border-transparent opacity-0 delay-0"
