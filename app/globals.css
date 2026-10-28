@@ -57,6 +57,10 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+
+
+
+
 /* red */
   :root {
     color-scheme: light;
@@ -346,7 +350,108 @@
   --chart-5: #34D399;
 } */
 
+/* purple */
+/* :root {
+  color-scheme: light;
 
+  --background: #F7F5FC;
+  --foreground: #211B30;
+
+  --card: #FFFFFF;
+  --card-foreground: #211B30;
+
+  --popover: #FFFFFF;
+  --popover-foreground: #211B30;
+
+  --primary: #7C3AED;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #EDE7FA;
+  --secondary-foreground: #5B21B6;
+
+  --muted: #F0EDF7;
+  --muted-foreground: #716B83;
+
+  --accent: #DDF8FC;
+  --accent-foreground: #0E7490;
+
+  --rose: #C02675;
+  --rose-foreground: #FFFFFF;
+
+  --destructive: #DC2626;
+  --success: #15803D;
+
+  --border: #E3DDF0;
+  --input: #D5CDE5;
+  --ring: #8B5CF6;
+
+  --radius: 0.75rem;
+
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #211B30;
+  --sidebar-primary: #7C3AED;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EDE7FA;
+  --sidebar-accent-foreground: #5B21B6;
+  --sidebar-border: #E3DDF0;
+  --sidebar-ring: #8B5CF6;
+
+  --chart-1: #7C3AED;
+  --chart-2: #06B6D4;
+  --chart-3: #A78BFA;
+  --chart-4: #0891B2;
+  --chart-5: #C02675;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #080810;
+  --foreground: #F5F3FF;
+
+  --card: #11111E;
+  --card-foreground: #F5F3FF;
+
+  --popover: #11111E;
+  --popover-foreground: #F5F3FF;
+
+  --primary: #A78BFA;
+  --primary-foreground: #160D2B;
+
+  --secondary: #211B35;
+  --secondary-foreground: #E9DFFF;
+
+  --muted: #171625;
+  --muted-foreground: #AAA5C0;
+
+  --accent: #12303A;
+  --accent-foreground: #A5F3FC;
+
+  --rose: #F0ABFC;
+  --rose-foreground: #30102F;
+
+  --destructive: #FB7185;
+  --success: #4ADE80;
+
+  --border: #2A263E;
+  --input: #39334E;
+  --ring: #8B5CF6;
+
+  --sidebar: #0D0C18;
+  --sidebar-foreground: #F5F3FF;
+  --sidebar-primary: #A78BFA;
+  --sidebar-primary-foreground: #160D2B;
+  --sidebar-accent: #211B35;
+  --sidebar-accent-foreground: #A5F3FC;
+  --sidebar-border: #2A263E;
+  --sidebar-ring: #8B5CF6;
+
+  --chart-1: #A78BFA;
+  --chart-2: #22D3EE;
+  --chart-3: #8B5CF6;
+  --chart-4: #06B6D4;
+  --chart-5: #F0ABFC;
+} */
 
 @layer base {
   * {
