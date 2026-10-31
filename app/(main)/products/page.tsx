@@ -1,26 +1,31 @@
 import { getProductService } from "@/services/product";
-import { CardImage } from "./CardImage";
-import Link from "next/link";
+import ProductsList from "./ProductsList";
+import { PaginationProduct } from "./PaginationProduct";
 
-const Products = async () => {
-  const product = await getProductService();
+
+export default async function Products({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+
+  
+  const sp = await searchParams;
+  const page = Number(sp.page) || 1;
+
+  const data = await getProductService({ page });
 
   return (
-    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5 p-10">
-      {product.items.map((value) => (
-        <div className="mb-4 " key={value.id}>
-          <Link href={value.id}>
-            <CardImage
-              imageUrl={value.imageUrl}
-              description={value.description}
-              name={value.name}
-              priceCents={value.priceCents}
-            />
-          </Link>
-        </div>
-      ))}
-    </div>
+    <>
+      <h1 className="pt-10 px-10 text-primary text-2xl font-bold">محصولات</h1>
+      <ProductsList products={data.items} />
+      <PaginationProduct page={data.page} totalPages={data.totalPages} />
+    </>
   );
-};
+}
 
-export default Products;
+
+export const metadata ={
+  title : 'products',
+  describtion : 'products page'
+}

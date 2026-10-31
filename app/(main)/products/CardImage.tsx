@@ -8,37 +8,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import config from "@/services/config";
 import Image from "next/image";
 
 type CardItem = {
-  priceCents: string;
+  id: string;
   name: string;
   description: string;
   imageUrl: string;
+  priceCents: number;
 };
 
-export function CardImage(props: CardItem) {
+export function CardImage({ name, description, imageUrl, priceCents }: CardItem) {
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0">
+    <Card className="relative mx-auto w-full pt-0">
       <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
       <Image
-        width={200}
-        height={200}
+        width={1000}
+        height={1000}
         loading="lazy"
         quality={100}
-        src="/image/nova-banner.WebP"
-        alt="Event cover"
-        className="relative z-20 object-cover aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+        src={`${config.onlinePath}${imageUrl}`}
+        alt={name}
+        unoptimized
+        className="relative z-20 aspect-video w-full object-cover"
       />
       <CardHeader>
         <CardAction>
-          <Badge variant="secondary">${props.priceCents / 100}</Badge>
+          <Badge variant="secondary">${(priceCents / 100).toFixed(2)}</Badge>
         </CardAction>
-        <CardTitle>{props.name}</CardTitle>
-        <CardDescription>{props.description}</CardDescription>
+        <CardTitle>{name}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardFooter>
-        {/* <Button className="w-full">View Event</Button> */}
+        <Button className="w-full">View Product</Button>
       </CardFooter>
     </Card>
   );
