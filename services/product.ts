@@ -1,5 +1,5 @@
 // services/productService.ts
-import type { ProductsRequest, ProductsResponse } from "@/types/ProductTypes";
+import type { ProductsRequest, ProductsResponse, ProductTypes } from "@/types/ProductTypes";
 import { cacheLife, cacheTag } from "next/cache";
 import httpService from "./_httpService";
 
@@ -14,3 +14,10 @@ export const getProductService = async (
   const res = await httpService.get<ProductsResponse>("/api/products", { params });
   return res.data;
 };
+
+
+
+export const getProductWithId = async ({id} : {id: string})=>{
+  const res = await httpService.get<ProductTypes>(`/api/products/${id}`)
+  return res.data
+}

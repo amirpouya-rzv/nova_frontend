@@ -23,16 +23,18 @@ httpService.interceptors.request.use(
 httpService.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response) {
-      const message =
-        error.response.data?.message ??
-        `API Error: ${error.response.status}`;
+    if (typeof window !== "undefined") {
+      if (error.response) {
+        const message =
+          error.response.data?.message ??
+          `API Error: ${error.response.status}`;
 
-      errorToast(message);
-    } else if (error.request) {
-      errorToast("No response received from server.");
-    } else {
-      errorToast(error.message ?? "Request failed.");
+        errorToast(message);
+      } else if (error.request) {
+        errorToast("No response received from server.");
+      } else {
+        errorToast(error.message ?? "Request failed.");
+      }
     }
 
     return Promise.reject(error);

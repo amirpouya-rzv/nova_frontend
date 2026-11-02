@@ -27,7 +27,7 @@ export function CardImage({ name, description, imageUrl, priceCents }: CardItem)
         width={1000}
         height={1000}
         loading="lazy"
-        quality={100}
+        quality={75}
         src={`${config.onlinePath}${imageUrl}`}
         alt={name}
         unoptimized

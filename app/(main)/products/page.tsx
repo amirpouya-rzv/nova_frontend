@@ -1,15 +1,28 @@
+import { Suspense } from "react";
 import { getProductService } from "@/services/product";
 import ProductsList from "./ProductsList";
 import { PaginationProduct } from "./PaginationProduct";
+import ProductsSkeleton from "./ProductsSkeleton";
+
+export const metadata = {
+  title: "products",
+  description: "products page",
+};
 
 
-export default async function Products({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string }>;
-}) {
+export default function Products({searchParams}: {searchParams: Promise<{ page?: string }>;}) {
+  return (
+    <>
+      <h1 className="pt-10 px-10 text-primary text-2xl font-bold">محصولات</h1>
 
-  
+      <Suspense fallback={<ProductsSkeleton  />}>
+        <ProductsContent searchParams={searchParams} />
+      </Suspense>
+    </>
+  );
+}
+
+async function ProductsContent({searchParams}: {searchParams: Promise<{ page?: string }>;}) {
   const sp = await searchParams;
   const page = Number(sp.page) || 1;
 
@@ -17,15 +30,8 @@ export default async function Products({
 
   return (
     <>
-      <h1 className="pt-10 px-10 text-primary text-2xl font-bold">محصولات</h1>
       <ProductsList products={data.items} />
       <PaginationProduct page={data.page} totalPages={data.totalPages} />
     </>
   );
-}
-
-
-export const metadata ={
-  title : 'products',
-  describtion : 'products page'
 }

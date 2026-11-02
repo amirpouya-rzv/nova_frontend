@@ -2,10 +2,16 @@ import { toast, TypeOptions, ToastOptions } from "react-toastify";
 
 let isToastVisible = false;
 
-const isDarkMode = () =>
-  document.documentElement.classList.contains("dark") ||
-  document.body.classList.contains("dark");
+const isDarkMode = () => {
+  if (typeof document === "undefined") {
+    return false;
+  }
 
+  return (
+    document.documentElement.classList.contains("dark") ||
+    document.body.classList.contains("dark")
+  );
+};
 const baseOptions = (type: TypeOptions, autoClose: number | false): ToastOptions => ({
   closeOnClick: true,
   autoClose,
