@@ -4,7 +4,7 @@ import config from "@/services/config";
 
 const ImageProduct = ({product} : { product : string }) => {
     return (
-        <div className='w-full'>
+        <div className='w-ful'>
             
       <Image
         src={`${config.onlinePath}${product.imageUrl}`}

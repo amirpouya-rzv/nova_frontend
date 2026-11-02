@@ -28,6 +28,7 @@ export async function generateMetadata({
   return {
     title: `${product.name} | NOVA`,
     description: product.description,
+
   };
 }
 
