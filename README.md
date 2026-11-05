@@ -26,6 +26,7 @@ Nova Shop is an e-commerce frontend project developed to practice modern fronten
 - Redux Toolkit
 - Axios
 - React Icons
+- Shadcn Ui
 
 ## Installation
 
