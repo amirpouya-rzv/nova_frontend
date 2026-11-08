@@ -24,7 +24,7 @@ export default function Header() {
     setIsOpen(false);
   }, [pathname]);
 
-  // قفل اسکرول صفحه وقتی منوی موبایل باز است
+  // اسکرول
 useLockBodyScroll(isOpen);
 
   // بستن منو با کلید Escape
@@ -39,7 +39,7 @@ useEscapeKey(isOpen, () => setIsOpen(false));
       <div
         onClick={() => setIsOpen(false)}
         aria-hidden
-        className={`fixed inset-0 z-40 bg-foreground/75 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-rose/20 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
           isOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
@@ -54,13 +54,13 @@ useEscapeKey(isOpen, () => setIsOpen(false));
           <header
             className={`relative overflow-hidden rounded-xl border transition-all duration-300 md:rounded-full ${
               scrolled
-                ? "border-border bg-background/75 shadow-lg shadow-foreground/5 backdrop-blur-xl"
+                ? "border-border bg-rose/20 shadow-lg shadow-foreground/5 backdrop-blur-xl"
                 : "border-border/60  backdrop-blur-xs"
             }`}
           >
             <div
               className={`flex items-center justify-between gap-3 px-3 transition-all duration-300 sm:px-5 ${
-                scrolled ? "h-14" : "h-[68px]"
+                scrolled ? "h-14" : "h-17"
               }`}
             >
               <Logo />

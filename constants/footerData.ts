@@ -1,3 +1,4 @@
+
 // constants/footerData.ts
 import type { IconType } from "react-icons";
 import {
@@ -15,12 +16,12 @@ import {
 } from "react-icons/fi";
 
 export const footerBrand = {
-  name: "لوگو",
-  tagline: "فروشگاه آنلاین",
-  letter: "L",
+  name: "NOVA",
+  tagline: "Online Store",
+  letter: "N",
   description:
-    "ارائه محصولات اصل با قیمت منصفانه، ارسال سریع و پشتیبانی واقعی. خرید آنلاین را ساده‌تر و قابل‌اعتمادتر می‌کنیم.",
-  copyright: "© ۱۴۰۵ لوگو. تمامی حقوق محفوظ است.",
+    "Discover authentic products at fair prices, enjoy fast delivery, and get reliable customer support. We make online shopping simple and trustworthy.",
+  copyright: "© 2026 NOVA. All rights reserved.",
 };
 
 export interface Feature {
@@ -30,10 +31,10 @@ export interface Feature {
 }
 
 export const features: Feature[] = [
-  { title: "ارسال سریع", description: "به سراسر کشور", icon: FiTruck },
-  { title: "ضمانت اصالت", description: "کالای ۱۰۰٪ اصل", icon: FiShield },
-  { title: "بازگشت کالا", description: "تا ۷ روز", icon: FiRefreshCw },
-  { title: "پشتیبانی", description: "هر روز هفته", icon: FiHeadphones },
+  { title: "Fast Delivery", description: "Across the country", icon: FiTruck },
+  { title: "Authenticity Guarantee", description: "100% genuine products", icon: FiShield },
+  { title: "Easy Returns", description: "Within 7 days", icon: FiRefreshCw },
+  { title: "Customer Support", description: "Available 7 days a week", icon: FiHeadphones },
 ];
 
 export interface FooterLink {
@@ -48,48 +49,48 @@ export interface FooterGroup {
 
 export const footerGroups: FooterGroup[] = [
   {
-    title: "دسترسی سریع",
+    title: "Quick Links",
     links: [
-      { label: "خانه", href: "/" },
-      { label: "محصولات", href: "/products" },
-      { label: "تخفیف‌ها", href: "/offers" },
-      { label: "درباره ما", href: "/about" },
+      { label: "Home", href: "/" },
+      { label: "Products", href: "/products" },
+      { label: "Offers", href: "/offers" },
+      { label: "About Us", href: "/aboutus" },
     ],
   },
   {
-    title: "خدمات مشتریان",
+    title: "Customer Service",
     links: [
-      { label: "پیگیری سفارش", href: "/track-order" },
-      { label: "سوالات متداول", href: "/faq" },
-      { label: "رویه بازگرداندن کالا", href: "/returns" },
-      { label: "تماس با ما", href: "/contact" },
+      { label: "Track Order", href: "/track-order" },
+      { label: "Frequently Asked Questions", href: "/faq" },
+      { label: "Returns & Refunds", href: "/returns" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
   {
-    title: "حساب کاربری",
+    title: "My Account",
     links: [
-      { label: "ورود / ثبت‌نام", href: "/login" },
-      { label: "سبد خرید", href: "/cart" },
-      { label: "سفارش‌های من", href: "/dashboard/orders" },
-      { label: "پروفایل", href: "/dashboard/profile" },
+      { label: "Sign In / Register", href: "/login" },
+      { label: "Shopping Cart", href: "/cart" },
+      { label: "My Orders", href: "/dashboard/orders" },
+      { label: "My Profile", href: "/dashboard/profile" },
     ],
   },
 ];
 
 export const contactInfo = [
-  { icon: FiPhone, label: "۰۲۱-۱۲۳۴۵۶۷۸", href: "tel:+982112345678" },
+  { icon: FiPhone, label: "+98 21 1234 5678", href: "tel:+982112345678" },
   { icon: FiMail, label: "info@example.com", href: "mailto:info@example.com" },
-  { icon: FiMapPin, label: "تهران، خیابان نمونه، پلاک ۱۲", href: undefined },
+  { icon: FiMapPin, label: "Tehran, Sample Street, No. 12", href: undefined },
 ];
 
 export const socialLinks = [
-  { label: "اینستاگرام", href: "https://instagram.com", icon: FiInstagram },
-  { label: "تلگرام", href: "https://t.me", icon: FiSend },
-  { label: "توییتر", href: "https://twitter.com", icon: FiTwitter },
-  { label: "لینکدین", href: "https://linkedin.com", icon: FiLinkedin },
+  { label: "Instagram", href: "https://instagram.com", icon: FiInstagram },
+  { label: "Telegram", href: "https://t.me", icon: FiSend },
+  { label: "Twitter", href: "https://twitter.com", icon: FiTwitter },
+  { label: "LinkedIn", href: "https://linkedin.com", icon: FiLinkedin },
 ];
 
 export const legalLinks: FooterLink[] = [
-  { label: "قوانین و مقررات", href: "/terms" },
-  { label: "حریم خصوصی", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
 ];

@@ -1,3 +1,4 @@
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -5,10 +6,18 @@ const nextConfig: NextConfig = {
 
   images: {
     remotePatterns: [
+      // Local backend
       {
         protocol: "http",
         hostname: "localhost",
         port: "4000",
+        pathname: "/uploads/**",
+      },
+
+      // Production backend
+      {
+        protocol: "https",
+        hostname: "shop-backend-gray-sigma.vercel.app",
         pathname: "/uploads/**",
       },
     ],
@@ -17,8 +26,10 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+
   cacheComponents: true,
   partialPrefetching: true,
+
   turbopack: {
     rules: {
       "*.css": {

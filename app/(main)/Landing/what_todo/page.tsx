@@ -1,6 +1,39 @@
 import React from "react";
 import Image from "next/image";
 
+const services = [
+  {
+    id: 1,
+    title: "Fast & Reliable Delivery",
+    description:
+      "We deliver your orders quickly and safely right to your doorstep, anywhere in the country.",
+    image: "/image/product.webp",
+    alt: "High-quality products from NOVA store",
+    articleClass: "md:mx-20",
+    imageClass: "lg:mx-20",
+  },
+  {
+    id: 2,
+    title: "24/7 Customer Support",
+    description:
+      "Our support team is always ready to assist you and answer your questions before and after your purchase.",
+    image: "/image/suport.webp",
+    alt: "NOVA customer support team",
+    articleClass: "md:-mx-5",
+    imageClass: "md:-mx-10 lg:-mx-20",
+  },
+  {
+    id: 3,
+    title: "Quality Guarantee",
+    description:
+      "We offer only high-quality, tested, and reliable products, with easy returns and exchanges for your peace of mind.",
+    image: "/image/send.webp",
+    alt: "Fast and reliable delivery across the country",
+    articleClass: "md:mx-20",
+    imageClass: "lg:mx-20",
+  },
+];
+
 function Whattodo() {
   return (
     <section
@@ -8,80 +41,63 @@ function Whattodo() {
       className="md:grid md:grid-cols-2 md:m-8"
     >
       {/* تیتر تبلیغاتی فروشگاه */}
-      <h2
-        id="whattodo-title"
-        className="mt-20 mb-10 text-center text-2xl md:text-4xl font-extrabold text-muted-foreground"
-      >
-        هر آنچه برای یک تجربه خرید آنلاین بی‌نقص نیاز دارید
-      </h2>
+   <h2
+  id="whattodo-title"
+  className="mt-20 mb-10 text-center text-2xl md:text-4xl font-extrabold text-muted-foreground"
+>
+  Everything You Need for a Perfect Online Shopping Experience
+</h2>
 
-      <p
-        className="mt-3 text-center px-5 mb-5 text-muted-foreground  text-2xl md:text-xl 
-            md:mt-22 md:mx-16 md:text-center font-noto "
-      >
-        از محصولات باکیفیت گرفته تا ارسال سریع و پشتیبانی شبانه‌روزی؛ اینجا
-        هستیم تا خرید را برای شما آسان و لذت‌بخش کنیم.
-      </p>
-
+<p
+  className="mt-3 text-center px-5 mb-5 text-muted-foreground text-2xl md:text-xl 
+  md:mt-22 md:mx-16 md:text-center font-noto"
+>
+  From high-quality products to fast delivery and 24/7 customer support, 
+  we are here to make your shopping experience easy and enjoyable.
+</p>
       {/* خدمات فروشگاه */}
       <div className="flex flex-col gap-y-10 mt-20 ">
-        {/* ارسال سریع */}
-        <article className="border border-accent shadow-2xl h-52 flex flex-col md:gap-y-5 justify-center items-center md:w-10/12 w-auto mx-5 md:mx-20 md:m-0 bg-accent dark:bg-accent-foreground rounded-2xl py-5 text-center text-muted-foreground ">
-          <h3 className="text-2xl">ارسال سریع و مطمئن</h3>
-          <p className="text-lg text-center p-5 md:p-0">
-            سفارش‌های شما را در سریع‌ترین زمان و با اطمینان تا درب منزل، در هر
-            نقطه از کشور، تحویل می‌دهیم.
-          </p>
-        </article>
+        {services.map((service) => (
+          <article
+            key={service.id}
+            className={`border hover:scale-110 duration-300 border-accent shadow-2xl h-52 flex flex-col md:gap-y-5 justify-center items-center md:w-10/12 w-auto mx-5 ${service.articleClass} md:m-0 bg-accent dark:bg-accent-foreground rounded-2xl py-5 text-center text-muted-foreground`}
+          >
+            <h3 className="text-2xl">{service.title}</h3>
 
-        {/* پشتیبانی شبانه‌روزی */}
-        <article className="border border-accent shadow-2xl  h-52 flex flex-col md:gap-y-5 justify-center items-center md:w-10/12 w-auto mx-5 md:-mx-5 md:m-0 bg-accent dark:bg-accent-foreground rounded-2xl py-5 text-center text-muted-foreground ">
-          <h3 className="text-2xl">پشتیبانی شبانه‌روزی</h3>
-          <p className="text-md text-center text-lg p-5 md:p-0">
-            تیم پشتیبانی ما پیش و پس از خرید، همواره آماده پاسخ‌گویی و کمک به
-            شماست.
-          </p>
-        </article>
-
-        {/* تضمین کیفیت */}
-        <article className="border border-accent shadow-2xl h-52 flex flex-col md:gap-y-5 justify-center items-center md:w-10/12 w-auto mx-5 md:mx-20 md:m-0 bg-accent dark:bg-accent-foreground rounded-2xl py-5 text-center text-muted-foreground ">
-          <h3 className="text-2xl">تضمین کیفیت</h3>
-          <p className="text-md text-center px-5 text-lg p-5 md:p-0">
-            ما فقط محصولات باکیفیت، آزمایش‌شده و قابل‌اعتماد عرضه می‌کنیم و
-            امکان بازگشت و تعویض کالا را نیز فراهم کرده‌ایم.
-          </p>
-        </article>
+            <p className="text-lg text-center p-5 md:p-0">
+              {service.description}
+            </p>
+          </article>
+        ))}
       </div>
 
-      {/* تصاویر تبلیغاتی فروشگاه */}
-      <div className="mt-20">
-        <Image
-          src="/image/product.webp"
-          width={200}
-          height={230}
-          sizes="(max-width: 768px) 92vw, 45vw"
-          alt="انواع محصولات باکیفیت فروشگاه NOVA"
-          className="h-52 w-10/12 rounded-2xl mx-auto lg:mx-20 shadow-2xl"
-        />
-        <div className="flex flex-col mt-10 gap-y-10">
-          <Image
-            src="/image/suport.webp"
-            width={450}
-            height={450}
-            sizes="(max-width: 768px) 92vw, 45vw"
-            alt="تیم پشتیبانی مشتریان فروشگاه NOVA"
-            className="h-52 w-10/12 rounded-2xl mx-auto md:-mx-10 lg:-mx-20 shadow-2xl"
-          />
-          <Image
-            src="/image/send.webp"
-            width={450}
-            height={450}
-            sizes="(max-width: 768px) 92vw, 45vw"
-            alt="ارسال سریع سفارش‌ها به سراسر کشور"
-            className="h-52 w-10/12 rounded-2xl mx-auto lg:mx-20 shadow-2xl"
-          />
-        </div>
-      </div>
+    {/* تصاویر تبلیغاتی فروشگاه */}
+<div className="mt-20 flex flex-col gap-y-10">
+  {services.map((service) => (
+    <div
+      key={service.id}
+      className={`group relative w-10/12 mx-auto ${service.imageClass} overflow-hidden rounded-2xl shadow-2xl`}
+    >
+      <Image
+        src={service.image}
+        width={450}
+        height={450}
+        sizes="(max-width: 768px) 92vw, 45vw"
+        alt={service.alt}
+        className="h-52 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+      />
+
+      {/* افکت عبور نور گرادیانت */}
+      <div
+        className="absolute inset-0 -translate-x-[120%] skew-x-[-25deg]
+        bg-linear-to-r from-transparent via-white/50 to-transparent
+        group-hover:translate-x-[120%]
+        transition-transform duration-1000 ease-in-out"
+      />
+    </div>
+  ))}
+</div>
+      
     </section>
   );
 }

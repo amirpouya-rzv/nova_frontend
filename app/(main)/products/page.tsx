@@ -13,8 +13,6 @@ export const metadata = {
 export default function Products({searchParams}: {searchParams: Promise<{ page?: string }>;}) {
   return (
     <>
-      <h1 className="pt-10 px-10 text-primary text-2xl font-bold">محصولات</h1>
-
       <Suspense fallback={<ProductsSkeleton  />}>
         <ProductsContent searchParams={searchParams} />
       </Suspense>

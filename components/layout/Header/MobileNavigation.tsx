@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiArrowLeft, FiSearch, FiUser } from "react-icons/fi";
 import { navLinks } from "@/constants/navLinks";
+import Search from "./Search";
 
 type MobileNavigationProps = {
   isOpen: boolean;
@@ -44,14 +45,15 @@ export default function MobileNavigation({ isOpen }: MobileNavigationProps) {
       >
         {/* جستجو */}
         <div className={itemClass} style={itemStyle(0)}>
-          <Link
+          {/* <Link
             href="/search"
             tabIndex={isOpen ? 0 : -1}
             className="flex h-11 items-center gap-3 rounded-xl border border-border bg-card px-4 text-sm text-muted-foreground"
           >
             <FiSearch size={18} />
             جستجو در محصولات...
-          </Link>
+          </Link> */}
+          <Search/>
         </div>
 
         {/* لینک‌های منو */}

@@ -16,9 +16,9 @@ export default function Logo() {
       <span className="hidden flex-col leading-tight sm:flex">
         <span className="text-lg font-extrabold text-foreground">
         </span>
-        <span className="text-[15px] text-muted-foreground animate-bounce">
+        {/* <span className="text-[15px] text-muted-foreground animate-bounce">
           چون لایق بهترین هایی
-        </span>
+        </span> */}
       </span>
     </Link>
   );
