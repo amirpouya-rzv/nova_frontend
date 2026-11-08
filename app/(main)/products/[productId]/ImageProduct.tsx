@@ -1,6 +1,6 @@
 import Image from "next/image";
+import config from "@/services/config";
 import type { ProductTypes } from "@/types/ProductTypes";
-import { getImageUrl } from "@/utils/imageUrl";
 
 type Props = { product: ProductTypes };
 
@@ -9,7 +9,7 @@ const ImageProduct = ({ product }: Props) => {
     <div className="w-full">
       {product.imageUrl ? (
         <Image
-          src={getImageUrl(product.imageUrl)}
+          src={`${config.onlinePath}${product.imageUrl}`}
           width={1200}
           height={800}
           alt={product.name}
