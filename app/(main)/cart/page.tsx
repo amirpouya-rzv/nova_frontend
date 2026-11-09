@@ -1,224 +1,324 @@
 
 "use client";
 
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import Image from "next/image";
 import {
-  FiArrowUpRight,
-  FiAperture,
-  FiMove,
-  FiPlus,
-  FiCommand,
-} from "react-icons/fi";
+  ShoppingBag,
+  Trash2,
+  Plus,
+  Minus,
+  ArrowLeft,
+  ShoppingBasket,
+  ShieldCheck,
+  Truck,
+  Tag,
+} from "lucide-react";
 
-const rise = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" as const },
-  },
+type CartItem = {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  quantity: number;
+  image: string;
 };
 
-export default function OffersPage() {
+const initialCart: CartItem[] = [
+  {
+    id: 1,
+    name: "کیف دستی چرمی زنانه",
+    category: "اکسسوری",
+    price: 1850000,
+    quantity: 1,
+    image: "/image/products/bag.jpg",
+  },
+  {
+    id: 2,
+    name: "ساعت کلاسیک مینیمال",
+    category: "ساعت و اکسسوری",
+    price: 2450000,
+    quantity: 2,
+    image: "/image/products/watch.jpg",
+  },
+  {
+    id: 3,
+    name: "عینک آفتابی مدل کلاسیک",
+    category: "اکسسوری",
+    price: 980000,
+    quantity: 1,
+    image: "/image/products/glasses.jpg",
+  },
+];
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat("fa-IR").format(price) + " تومان";
+
+export default function CartPage() {
+  const [cart, setCart] = useState(initialCart);
+
+  const increase = (id: number) => {
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
+
+  const decrease = (id: number) => {
+    setCart((prev) =>
+      prev
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  const removeItem = (id: number) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const subtotal = useMemo(
+    () =>
+      cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      ),
+    [cart]
+  );
+
+  const shipping = subtotal >= 3000000 || subtotal === 0 ? 0 : 85000;
+  const discount = subtotal >= 5000000 ? 250000 : 0;
+  const total = subtotal + shipping - discount;
+
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-background text-foreground transition-colors duration-500">
+    <main
+      dir="rtl"
+      className="min-h-screen bg-background text-foreground px-4 py-10 sm:px-8 lg:px-12"
+    >
+      <div className="mx-auto max-w-7xl">
 
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -right-40 -top-40 h-screen w-[600px] rounded-full bg-primary/20 blur-[140px]" />
-        <div className="absolute -bottom-40 -left-40 h-[550px] w-[550px] rounded-full bg-rose/15 blur-[140px]" />
-        <div className="absolute inset-0 opacity-[0.045] [background-image:radial-gradient(var(--foreground)_1px,transparent_1px)] [background-size:24px_24px]" />
+        {/* Header */}
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-xs font-semibold text-secondary-foreground">
+              <ShoppingBag size={15} />
+              SHOPPING CART
+            </span>
+
+            <h1 className="text-3xl font-black tracking-tight sm:text-4xl">
+              سبد خرید شما
+            </h1>
+
+            <p className="mt-3 text-sm text-muted-foreground">
+              محصولات مورد علاقه‌ات منتظر نهایی شدن سفارش هستند.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <ShoppingBasket size={19} />
+            <span>
+              {cart.reduce((sum, item) => sum + item.quantity, 0)}
+              {" "}محصول در سبد خرید
+            </span>
+          </div>
+        </div>
+
+        {cart.length === 0 ? (
+          <div className="rounded-3xl border border-border bg-card px-6 py-20 text-center shadow-sm">
+            <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-full bg-secondary text-primary">
+              <ShoppingBag size={36} />
+            </div>
+
+            <h2 className="text-2xl font-bold">
+              سبد خرید شما خالی است!
+            </h2>
+
+            <p className="mt-3 text-sm text-muted-foreground">
+              هنوز محصولی به سبد خرید اضافه نکرده‌اید.
+            </p>
+
+            <button className="mt-8 rounded-xl bg-primary px-8 py-3 font-bold text-primary-foreground transition hover:opacity-90">
+              مشاهده محصولات
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
+
+            {/* Products */}
+            <section className="space-y-5 lg:col-span-2">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold">
+                  محصولات انتخاب شده
+                </h2>
+                <span className="text-xs text-muted-foreground">
+                  {cart.length} نوع محصول
+                </span>
+              </div>
+
+              {cart.map((item) => (
+                <article
+                  key={item.id}
+                  className="group flex flex-col gap-5 rounded-2xl border border-border bg-card p-4 shadow-sm transition duration-300 hover:border-primary/40 sm:flex-row sm:items-center"
+                >
+                  {/* Product image */}
+                  <div className="relative h-36 w-full shrink-0 overflow-hidden rounded-xl bg-muted sm:size-32">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-cover transition duration-500 group-hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Product information */}
+                  <div className="flex flex-1 flex-col justify-between gap-4">
+                    <div>
+                      <span className="text-xs text-muted-foreground">
+                        {item.category}
+                      </span>
+
+                      <h3 className="mt-2 text-base font-bold">
+                        {item.name}
+                      </h3>
+
+                      <p className="mt-2 text-sm font-bold text-primary">
+                        {formatPrice(item.price)}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      {/* Quantity */}
+                      <div className="flex items-center gap-3 rounded-xl border border-border bg-background p-1">
+                        <button
+                          onClick={() => increase(item.id)}
+                          aria-label="افزایش تعداد"
+                          className="flex size-8 items-center justify-center rounded-lg bg-secondary text-secondary-foreground transition hover:bg-primary hover:text-primary-foreground"
+                        >
+                          <Plus size={15} />
+                        </button>
+
+                        <span className="min-w-5 text-center text-sm font-bold">
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          onClick={() => decrease(item.id)}
+                          aria-label="کاهش تعداد"
+                          className="flex size-8 items-center justify-center rounded-lg bg-secondary text-secondary-foreground transition hover:bg-primary hover:text-primary-foreground"
+                        >
+                          <Minus size={15} />
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="flex items-center gap-2 text-xs text-muted-foreground transition hover:text-destructive"
+                      >
+                        <Trash2 size={16} />
+                        حذف محصول
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Total price */}
+                  <div className="hidden min-w-32 text-left sm:block">
+                    <p className="text-xs text-muted-foreground">
+                      قیمت کل
+                    </p>
+                    <p className="mt-2 font-extrabold text-foreground">
+                      {formatPrice(item.price * item.quantity)}
+                    </p>
+                  </div>
+                </article>
+              ))}
+
+              <div className="flex items-center justify-between rounded-2xl bg-secondary/60 p-5">
+                <div className="flex items-center gap-3">
+                  <Truck className="text-primary" size={22} />
+                  <div>
+                    <p className="text-sm font-bold">
+                      ارسال رایگان
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      برای سفارش‌های بالای ۳ میلیون تومان
+                    </p>
+                  </div>
+                </div>
+
+                <Tag className="text-primary" size={22} />
+              </div>
+            </section>
+
+            {/* Order summary */}
+            <aside className="sticky top-6 rounded-3xl border border-border bg-card p-6 shadow-sm">
+              <h2 className="text-xl font-black">
+                خلاصه سفارش
+              </h2>
+
+              <div className="my-6 h-px bg-border" />
+
+              <div className="space-y-5 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">
+                    قیمت محصولات
+                  </span>
+                  <span className="font-semibold">
+                    {formatPrice(subtotal)}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">
+                    هزینه ارسال
+                  </span>
+                  <span className={shipping === 0 ? "font-bold text-success" : "font-semibold"}>
+                    {shipping === 0 ? "رایگان" : formatPrice(shipping)}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">
+                    تخفیف
+                  </span>
+                  <span className="font-bold text-success">
+                    {discount > 0 ? `-${formatPrice(discount)}` : "۰ تومان"}
+                  </span>
+                </div>
+              </div>
+
+              <div className="my-6 h-px bg-border" />
+
+              <div className="flex items-center justify-between">
+                <span className="font-bold">
+                  مبلغ قابل پرداخت
+                </span>
+                <span className="text-xl font-black text-primary">
+                  {formatPrice(total)}
+                </span>
+              </div>
+
+              <button
+                disabled={cart.length === 0}
+                className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl bg-primary py-4 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25 disabled:opacity-50"
+              >
+                تکمیل فرآیند خرید
+                <ArrowLeft size={18} />
+              </button>
+
+              <div className="mt-5 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                <ShieldCheck size={17} className="text-success" />
+                پرداخت امن و مطمئن
+              </div>
+            </aside>
+          </div>
+        )}
       </div>
-
-      {/* Header */}
-      <header className="relative z-10 mx-auto flex max-w-[1500px] items-center justify-between px-6 py-7 sm:px-12 lg:px-16">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
-            <FiAperture size={23} />
-          </div>
-          <span className="text-xl font-black tracking-[0.3em]">NOVA</span>
-        </div>
-
-        <div className="hidden items-center gap-3 rounded-full border border-border bg-card/80 px-5 py-3 backdrop-blur-xl sm:flex">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
-          <span className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground">
-            BUILDING SOMETHING NEW
-          </span>
-        </div>
-
-        <span className="text-[10px] font-bold tracking-[0.2em] text-muted-foreground">
-          EST. 2026
-        </span>
-      </header>
-
-      {/* Hero */}
-      <section className="relative mx-auto grid min-h-[calc(100vh-100px)] max-w-[1500px] items-center gap-12 px-6 pb-16 pt-8 sm:px-12 lg:grid-cols-2 lg:px-16">
-
-        {/* Content */}
-        <div className="relative z-10">
-          <motion.div
-            variants={rise}
-            initial="hidden"
-            animate="visible"
-            className="mb-8 flex items-center gap-4"
-          >
-            <span className="h-px w-12 bg-primary" />
-            <span className="text-[10px] font-black tracking-[0.4em] text-primary">
-              A NEW ERA IS TAKING SHAPE
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-[clamp(4rem,10vw,9rem)] font-black leading-[0.85] tracking-[-0.09em]"
-          >
-            RE
-            <span className="bg-gradient-to-r from-foreground via-primary to-rose bg-clip-text text-transparent">
-              IMAGINE.
-            </span>
-            <br />
-            <span className="text-muted-foreground/30">RE</span>
-            <span className="text-primary">DEFINE.</span>
-          </motion.h1>
-
-          <motion.p
-            variants={rise}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.25 }}
-            className="mt-9 max-w-md text-sm leading-8 text-muted-foreground sm:text-base"
-          >
-            More than an online store. A new perspective on digital shopping.
-            We are creating something different, something made to stand out.
-          </motion.p>
-
-          <motion.div
-            variants={rise}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.4 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <div className="flex items-center gap-3 rounded-full bg-primary px-7 py-4 text-primary-foreground shadow-xl shadow-primary/20">
-              <FiCommand size={18} />
-              <span className="text-xs font-bold tracking-[0.2em]">
-                COMING SOON
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
-              <span className="h-2 w-2 rounded-full bg-success" />
-              CURRENTLY IN DEVELOPMENT
-            </div>
-          </motion.div>
-
-          <div className="mt-20 hidden items-center gap-8 border-t border-border pt-7 sm:flex">
-            {["DESIGN", "TECHNOLOGY", "EXPERIENCE"].map((item, index) => (
-              <div key={item}>
-                <div className="text-2xl font-black tracking-tighter text-foreground">
-                  0{index + 1}
-                </div>
-                <div className="mt-1 text-[9px] font-bold tracking-[0.2em] text-muted-foreground">
-                  {item}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Visual */}
-        <div className="relative mx-auto flex aspect-square w-full max-w-[570px] items-center justify-center">
-
-          <div className="absolute inset-[8%] rounded-full bg-gradient-to-br from-primary/25 via-secondary/50 to-rose/10 shadow-[inset_0_0_100px_var(--border)]" />
-
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[4%] rounded-full border border-dashed border-primary/30"
-          >
-            <div className="absolute left-[12%] top-[16%] h-3 w-3 rounded-full bg-primary shadow-[0_0_20px_var(--primary)]" />
-          </motion.div>
-
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[15%] rounded-full border border-rose/20"
-          />
-
-          <motion.div
-            animate={{
-              y: [0, -18, 0],
-              rotate: [0, 5, 0, -5, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="relative flex h-[55%] w-[55%] items-center justify-center rounded-[42%] border border-primary/30 bg-gradient-to-br from-primary via-rose to-secondary shadow-[25px_35px_90px_var(--border),inset_8px_8px_35px_rgba(255,255,255,0.25)]"
-          >
-            <div className="absolute inset-[10%] rounded-[40%] border border-primary-foreground/20" />
-            <div className="absolute left-[15%] top-[15%] h-16 w-24 rotate-[-35deg] rounded-full bg-primary-foreground/20 blur-xl" />
-
-            <span className="relative text-8xl font-black tracking-[-0.1em] text-primary-foreground drop-shadow-xl sm:text-9xl">
-              N.
-            </span>
-          </motion.div>
-
-          {/* Floating card */}
-          <motion.div
-            animate={{ y: [0, -12, 0], rotate: [2, -2, 2] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-1 top-[18%] rounded-2xl border border-border bg-card/85 p-4 shadow-2xl backdrop-blur-2xl sm:-left-4"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <FiMove size={19} />
-              </div>
-              <div>
-                <div className="text-[10px] font-black tracking-widest text-card-foreground">
-                  NEW VISION
-                </div>
-                <div className="mt-1 text-[9px] text-muted-foreground">
-                  BEYOND ORDINARY
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="absolute -bottom-1 right-0 rounded-2xl border border-border bg-card/90 px-5 py-4 shadow-xl backdrop-blur-2xl"
-          >
-            <div className="flex items-center gap-3">
-              <div className="h-2 w-2 animate-pulse rounded-full bg-success" />
-              <span className="text-[10px] font-black tracking-[0.2em] text-card-foreground">
-                SOMETHING IS COMING
-              </span>
-            </div>
-          </motion.div>
-
-          <FiPlus className="absolute right-[9%] top-[10%] text-primary/70" size={24} />
-          <FiPlus className="absolute bottom-[13%] left-[10%] text-rose" size={17} />
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative mx-auto flex max-w-[1500px] flex-col items-center justify-between gap-4 border-t border-border px-6 py-7 sm:flex-row sm:px-12 lg:px-16">
-        <span className="text-xs font-black tracking-[0.4em]">NOVA®</span>
-        <span className="text-[9px] font-semibold tracking-[0.3em] text-muted-foreground">
-          MADE FOR THE NEXT GENERATION
-        </span>
-        <div className="flex items-center gap-2 text-primary">
-          <span className="text-[10px] font-bold tracking-[0.2em]">
-            STAY CURIOUS
-          </span>
-          <FiArrowUpRight size={17} />
-        </div>
-      </footer>
     </main>
   );
 }

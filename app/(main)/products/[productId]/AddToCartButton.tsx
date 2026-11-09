@@ -1,12 +1,12 @@
-
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi";
 
 const AddToCartButton = () => {
   return (
-    <Button
+    <Link
+      href="/cart"
       className="
-        h-14 w-full cursor-pointer
+        inline-flex h-14 w-full cursor-pointer items-center justify-center
         rounded-2xl border border-white/20
         bg-primary/90
         text-base font-semibold text-primary-foreground
@@ -21,7 +21,7 @@ const AddToCartButton = () => {
     >
       <FiShoppingCart className="mr-2" size={20} />
       Add To Cart
-    </Button>
+    </Link>
   );
 };
 
