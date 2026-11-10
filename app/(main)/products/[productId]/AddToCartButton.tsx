@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useTransition } from "react";
@@ -28,6 +29,11 @@ const AddToCartButton = ({
 
       setMessage(result.message);
       setSuccess(result.success);
+
+      if (result.requiresLogin) {
+        router.push("/login");
+        return;
+      }
 
       if (result.success) {
         router.push("/cart");

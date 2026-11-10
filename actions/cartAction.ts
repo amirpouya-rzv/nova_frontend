@@ -1,3 +1,4 @@
+
 "use server";
 
 import httpService from "@/services/_httpService";
@@ -7,6 +8,7 @@ import axios from "axios";
 type AddToCartResult = {
   success: boolean;
   message: string;
+  requiresLogin?: boolean;
 };
 
 export const addToCartAction = async (
@@ -14,7 +16,7 @@ export const addToCartAction = async (
   quantity: number = 1
 ): Promise<AddToCartResult> => {
   try {
-    if (!productId || quantity < 1) {
+    if (!productId || !Number.isInteger(quantity) || quantity < 1) {
       return {
         success: false,
         message: "Invalid product information",
@@ -24,19 +26,31 @@ export const addToCartAction = async (
     const cookieStore = await cookies();
     const token = cookieStore.get("logintoken")?.value;
 
+    // User is not logged in
     if (!token) {
+      cookieStore.set(
+        "pendingCart",
+        JSON.stringify({ productId, quantity }),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          path: "/",
+          maxAge: 60 * 10,
+        }
+      );
+
       return {
         success: false,
+        requiresLogin: true,
         message: "Please login first",
       };
     }
 
+    // User is logged in
     await httpService.post(
       "/api/cart/items",
-      {
-        productId,
-        quantity,
-      },
+      { productId, quantity },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -48,6 +62,7 @@ export const addToCartAction = async (
       success: true,
       message: "Product added to cart successfully!",
     };
+
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       const message = error.response?.data?.message;
@@ -67,7 +82,6 @@ export const addToCartAction = async (
     };
   }
 };
-
 
 
 export const removeFromCartAction = async (): Promise<AddToCartResult> => {
@@ -92,6 +106,7 @@ export const removeFromCartAction = async (): Promise<AddToCartResult> => {
       success: true,
       message: "Cart emptied successfully!",
     };
+
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       const message = error.response?.data?.message;

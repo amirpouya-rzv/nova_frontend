@@ -1,3 +1,4 @@
+
 "use server";
 
 import httpService from "@/services/_httpService";
@@ -5,8 +6,9 @@ import { ActionTypeLogin } from "@/types/actionLogin";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import * as z from "zod";
+import axios from "axios";
 
-// validation 
+// Validation schema
 const validationSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email format"),
   password: z.string().min(8, "Password must be at least 8 characters"),
@@ -14,73 +16,119 @@ const validationSchema = z.object({
 
 export const LoginAction = async (
   prevState: ActionTypeLogin,
-  formData: FormData,
+  formData: FormData
 ) => {
+  // Extract form values
+  const email = formData.get("email");
+  const password = formData.get("password");
 
-  // Extract form values 
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  // Validate form data
+  const validation = validationSchema.safeParse({
+    email,
+    password,
+  });
 
-
-  // handle validation
-  const params = { email, password };
-  const validationfeild = validationSchema.safeParse(params);
-  if (!validationfeild.success) {
+  if (!validation.success) {
     return {
-      errors: validationfeild.error.flatten().fieldErrors,
+      errors: validation.error.flatten().fieldErrors,
       success: false,
     };
   }
 
-  // try {
-    const res = await httpService.post("/api/auth/login", params);
-    if (res.status === 200) {
-      const token = res.data.accessToken;
+  const cookieStore = await cookies();
 
-      (await cookies()).set("logintoken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 15, // ۱۵ دقیقه، برابر عمر توکن
-     });
+  // Default redirect destination
+  let redirectTo = "/";
 
-       redirect("/");
-     } 
-    return {
-       errors: { general: ["Login failed. Please try again."] },
-      success: false,
-    };
+  let token: string;
 
-  // }
-  //  catch (err) {
-
-  //   //  general error 
-  //   return {
-  //     errors: {
-  //       general: ["Email or password is incorrect"],
-  //     },
-  //     success: false,
-  //   };
-  // }
-};
-
-
-// control login user
-export const isLoggedIn = async (): Promise<boolean> => {
+  // Login request
   try {
-    const token = (await cookies()).get("logintoken")?.value;
-
-    if (!token) return false;
-
-    const res = await httpService.get("/api/auth/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const res = await httpService.post("/api/auth/login", {
+      email: validation.data.email,
+      password: validation.data.password,
     });
 
-    return res.status === 200;
+    token = res.data.accessToken;
 
-  } catch (error) {
-    return false;
+    if (!token) {
+      return {
+        errors: {
+          general: ["Login failed. Please try again."],
+        },
+        success: false,
+      };
+    }
+
+  } catch (error: unknown) {
+    let message = "Email or password is incorrect";
+
+    if (axios.isAxiosError(error)) {
+      const apiMessage = error.response?.data?.message;
+
+      if (typeof apiMessage === "string") {
+        message = apiMessage;
+      }
+    }
+
+    return {
+      errors: {
+        general: [message],
+      },
+      success: false,
+    };
   }
+
+  // Save authentication token
+  cookieStore.set("logintoken", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 15,
+  });
+
+  // Check pending cart
+  const pendingCartCookie = cookieStore.get("pendingCart")?.value;
+
+  if (pendingCartCookie) {
+    redirectTo = "/cart";
+
+    try {
+      const pendingCart = JSON.parse(pendingCartCookie);
+
+      // Validate saved product information
+      if (
+        typeof pendingCart.productId === "string" &&
+        pendingCart.productId.length > 0 &&
+        Number.isInteger(pendingCart.quantity) &&
+        pendingCart.quantity >= 1
+      ) {
+        await httpService.post(
+          "/api/cart/items",
+          {
+            productId: pendingCart.productId,
+            quantity: pendingCart.quantity,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // Remove pending cart after successful request
+        cookieStore.delete("pendingCart");
+      } else {
+        cookieStore.delete("pendingCart");
+      }
+
+    } catch (error) {
+      // Keep pendingCart if adding the product fails
+      console.error("Failed to add pending product to cart:", error);
+    }
+  }
+
+  // Redirect user
+  redirect(redirectTo);
 };

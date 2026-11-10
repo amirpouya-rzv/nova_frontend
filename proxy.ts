@@ -7,7 +7,7 @@ export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Protect cart route
-  if (pathname.startsWith("/cart") && !token) {
+  if (pathname.startsWith("/products/:path*") && !token) {
     return NextResponse.redirect(
       new URL("/login", request.url)
     );
@@ -25,5 +25,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/cart/:path*", "/login"],
+  matcher: ["/products/:path*", "/login"],
 };
