@@ -1,18 +1,19 @@
 // components/layout/Footer/FooterBrand.tsx
 import Link from "next/link";
 import { contactInfo, footerBrand, socialLinks } from "@/constants/footerData";
+import Image from "next/image";
 
 export default function FooterBrand() {
   return (
     <div>
       <Link href="/" className="group inline-flex items-center gap-2.5">
-        <span className="flex size-11 items-center justify-center rounded-xl bg-linear-to-br from-primary to-primary/60 text-xl font-extrabold text-primary-foreground shadow-md shadow-primary/30 transition-transform duration-300 group-hover:rotate-6">
-          {footerBrand.letter}
-        </span>
-        <span className="flex flex-col leading-tight">
-          <span className="text-lg font-extrabold text-foreground">{footerBrand.name}</span>
-          <span className="text-[11px] text-muted-foreground">{footerBrand.tagline}</span>
-        </span>
+         <span className="relative flex size-10 items-center justify-center rounded-xl bg-linear-to-br from-primary to-primary/60 text-lg font-extrabold text-primary-foreground shadow-md shadow-primary/30 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">
+               <Image
+               src='/image/logo.webp'
+               alt="logo"
+               width={100}
+               height={100}/>
+             </span>
       </Link>
 
       <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground">
