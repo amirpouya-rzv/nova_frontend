@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { FiArrowRight, FiX, FiTruck } from "react-icons/fi";
+import { FiArrowRight, FiX, FiShoppingBag } from "react-icons/fi";
 
 export default function Announcement() {
   const [showBanner, setShowBanner] = useState(true);
@@ -30,18 +30,18 @@ export default function Announcement() {
         <div className="announcement-content relative mx-auto flex items-center justify-center gap-2 px-10 py-2 text-xs font-medium sm:text-sm">
 
           <div className="announcement-icon flex shrink-0 items-center justify-center">
-            <FiTruck size={16} />
+            <FiShoppingBag size={16} />
           </div>
 
           <p className="truncate">
-            Free shipping on orders over $50!
+            Welcome to NOVA — Discover Your Style!
           </p>
 
           <Link
-            href="/offers"
+            href="/products"
             className="announcement-link hidden items-center gap-1 underline underline-offset-4 transition-opacity hover:opacity-70 sm:flex"
           >
-            Explore Offers
+            Explore Collection
             <FiArrowRight size={14} />
           </Link>
         </div>
@@ -50,7 +50,7 @@ export default function Announcement() {
         <button
           type="button"
           onClick={closeBanner}
-          aria-label="Close announcement"
+          aria-label="Close welcome message"
           className="announcement-close absolute right-3 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 hover:rotate-90 hover:bg-primary-foreground/15"
         >
           <FiX size={14} />

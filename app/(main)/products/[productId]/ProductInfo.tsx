@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Counter from "./Counter";
 import AddToCartButton from "./AddToCartButton";
 
@@ -6,11 +9,11 @@ type Props = {
 };
 
 const ProductInfo = ({ product }: Props) => {
+  const [quantity, setQuantity] = useState(1);
+
   return (
     <section className="flex flex-col justify-center gap-6 py-4">
-
       <div className="space-y-3">
-
         <p className="text-sm font-semibold tracking-[0.3em] text-primary">
           NOVA / COLLECTION
         </p>
@@ -19,22 +22,15 @@ const ProductInfo = ({ product }: Props) => {
           {product.name}
         </h1>
 
-        <p className="text-sm text-muted-foreground">
-          {product.slug}
-        </p>
-
+        <p className="text-sm text-muted-foreground">{product.slug}</p>
       </div>
 
       <div className="flex items-center gap-3">
-
-        <div className="flex gap-1 text-[#C6A15B]">
-          ★ ★ ★ ★ ★
-        </div>
+        <div className="flex gap-1 text-[#C6A15B]">★ ★ ★ ★ ★</div>
 
         <span className="text-sm text-muted-foreground">
           Product Collection
         </span>
-
       </div>
 
       <div className="h-px w-full bg-border" />
@@ -44,45 +40,41 @@ const ProductInfo = ({ product }: Props) => {
       </p>
 
       <div className="flex items-center justify-between rounded-2xl bg-secondary/70 p-5">
-
         <div>
-          <p className="text-sm text-muted-foreground">
-            Price
-          </p>
+          <p className="text-sm text-muted-foreground">Price</p>
 
           <p className="mt-2 text-3xl font-bold text-primary">
-            ${product.priceCents / 10}
+            ${product.priceCents / 100}
           </p>
         </div>
 
         <div className="text-right">
-
-          <p className="text-sm text-muted-foreground">
-            Availability
-          </p>
+          <p className="text-sm text-muted-foreground">Availability</p>
 
           <p className="mt-2 font-semibold text-success">
             {product.isActive ? "In Stock" : "Unavailable"}
           </p>
-
         </div>
-
       </div>
 
       <div className="space-y-3">
-
         <p className="text-sm font-semibold text-foreground">
           Quantity
         </p>
 
-        <Counter />
-
+        <Counter
+          count={quantity}
+          setCount={setQuantity}
+          max={product.stock}
+        />
       </div>
 
-      <AddToCartButton />
+      <AddToCartButton
+        productId={product.id}
+        quantity={quantity}
+      />
 
       <div className="grid grid-cols-2 gap-3 border-t border-border pt-5">
-
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span className="text-primary">✦</span>
           Premium Quality
@@ -92,9 +84,7 @@ const ProductInfo = ({ product }: Props) => {
           <span className="text-primary">✦</span>
           Secure Shopping
         </div>
-
       </div>
-
     </section>
   );
 };

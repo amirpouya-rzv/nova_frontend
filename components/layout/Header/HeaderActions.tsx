@@ -27,9 +27,7 @@ export default function HeaderActions() {
         className={`${iconButton} relative`}
       >
         <FiShoppingCart size={18} />
-        <span className="absolute -top-1.5 -left-1.5 flex size-5 items-center justify-center rounded-full border-2 border-background bg-primary text-[10px] font-bold text-primary-foreground">
-          3
-        </span>
+       
       </Link>
 
       <Link

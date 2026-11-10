@@ -1,0 +1,54 @@
+import Image from "next/image";
+import { CartItem } from "@/types/cart";
+
+type Props = {
+  item: CartItem;
+};
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat("en-US").format(price / 100);
+
+const CartItemCard = ({ item }: Props) => {
+  return (
+    <article className="flex gap-5 rounded-2xl border p-4">
+      {/* Product Image */}
+      <div className="relative h-28 w-28 shrink-0">
+        {item.product.imageUrl ? (
+          <Image
+            src={item.product.imageUrl}
+            alt={item.product.name}
+            fill
+            className="rounded-xl object-cover"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center rounded-xl bg-muted">
+            No Image
+          </div>
+        )}
+      </div>
+
+      {/* Product Info */}
+      <div className="flex flex-1 flex-col justify-between">
+        <div>
+          <h2 className="font-semibold">
+            {item.product.name}
+          </h2>
+
+          <p className="mt-2 text-sm text-muted-foreground">
+            {item.product.category?.name ?? "Uncategorized"}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span>Quantity: {item.quantity}</span>
+
+          <span className="font-bold">
+            {formatPrice(item.product.priceCents * item.quantity)}
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+export default CartItemCard;

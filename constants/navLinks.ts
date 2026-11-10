@@ -12,7 +12,7 @@ export interface NavLink {
 export const navLinks: NavLink[] = [
   { label: "Home", href: "/", icon: FiHome },
   { label: "Products", href: "/products", icon: FiShoppingBag },
-  { label: "Offers", href: "/offers", icon: FiTag, badge: "New" },
+  // { label: "Offers", href: "/offers", icon: FiTag, badge: "New" },
   { label: "About Us", href: "/aboutus", icon: FiInfo },
   { label: "Contact Us", href: "/contactus", icon: FiMail },
 ];
