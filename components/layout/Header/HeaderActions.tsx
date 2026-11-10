@@ -7,6 +7,7 @@ import {
   FiShoppingCart,
   FiUser,
   FiLogOut,
+  FiArrowLeft,
 } from "react-icons/fi";
 
 import ThemeToggle from "./ThemeToggle";
@@ -61,9 +62,9 @@ export default function HeaderActions() {
           <FiUser size={16} />
           Sign In / Register
 
-          <FiArrowRight
+          <FiArrowLeft
             size={14}
-            className="transition-transform group-hover:translate-x-1"
+            className="transition-transform group-hover:-translate-x-1"
           />
         </Link>
       )}

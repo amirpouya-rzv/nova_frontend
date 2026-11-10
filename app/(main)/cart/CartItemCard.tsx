@@ -26,7 +26,7 @@ const CartItemCard = ({ item }: Props) => {
             className="rounded-xl object-cover"
           />
         ) : (
-          <div className="flex h-full items-center justify-center rounded-xl bg-muted">
+          <div className="flex h-full items-center justify-center rounded-xl bg-muted text-sm text-muted-foreground">
             No Image
           </div>
         )}

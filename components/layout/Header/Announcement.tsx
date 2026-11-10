@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { FiArrowRight, FiX, FiShoppingBag } from "react-icons/fi";
+import { FiArrowRight, FiX, FiShoppingBag, FiArrowLeft } from "react-icons/fi";
 
 export default function Announcement() {
   const [showBanner, setShowBanner] = useState(true);
@@ -42,7 +42,7 @@ export default function Announcement() {
             className="announcement-link hidden items-center gap-1 underline underline-offset-4 transition-opacity hover:opacity-70 sm:flex"
           >
             Explore Collection
-            <FiArrowRight size={14} />
+            <FiArrowLeft size={14} />
           </Link>
         </div>
 
@@ -51,7 +51,7 @@ export default function Announcement() {
           type="button"
           onClick={closeBanner}
           aria-label="Close welcome message"
-          className="announcement-close absolute right-3 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 hover:rotate-90 hover:bg-primary-foreground/15"
+          className="announcement-close absolute left-2 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 hover:rotate-90 hover:bg-primary-foreground/15"
         >
           <FiX size={14} />
         </button>

@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
+    <html lang="fa" dir="ltr" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

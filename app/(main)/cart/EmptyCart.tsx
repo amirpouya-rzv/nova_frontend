@@ -4,7 +4,7 @@ const EmptyCart = () => {
   return (
     <div className="py-24 text-center">
       <h2 className="text-2xl font-bold">
-        Your cart is empty!
+        !Your cart is empty
       </h2>
 
       <p className="mt-3 text-muted-foreground">
