@@ -1,5 +1,7 @@
+
 import Image from "next/image";
 import { CartItem } from "@/types/cart";
+import config from "@/services/config";
 
 type Props = {
   item: CartItem;
@@ -9,15 +11,18 @@ const formatPrice = (price: number) =>
   new Intl.NumberFormat("en-US").format(price / 100);
 
 const CartItemCard = ({ item }: Props) => {
+  const imageUrl = item.product.imageUrl;
+
   return (
     <article className="flex gap-5 rounded-2xl border p-4">
       {/* Product Image */}
       <div className="relative h-28 w-28 shrink-0">
-        {item.product.imageUrl ? (
+        {imageUrl ? (
           <Image
-            src={item.product.imageUrl}
+            src={`${config.onlinePath}${imageUrl}`}
             alt={item.product.name}
             fill
+            sizes="112px"
             className="rounded-xl object-cover"
           />
         ) : (

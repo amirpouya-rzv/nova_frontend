@@ -132,3 +132,19 @@ export const LoginAction = async (
   // Redirect user
   redirect(redirectTo);
 };
+
+
+export async function LogoutAction() {
+  const cookieStore = await cookies();
+
+  cookieStore.delete("logintoken");
+
+  redirect("/");
+}
+
+
+export async function CheckLoginAction() {
+  const cookieStore = await cookies();
+
+  return Boolean(cookieStore.get("logintoken")?.value);
+}

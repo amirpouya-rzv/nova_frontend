@@ -1,22 +1,44 @@
+
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiArrowLeft, FiSearch, FiUser } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import {
+  FiArrowLeft,
+  FiUser,
+  FiLogOut,
+} from "react-icons/fi";
+
 import { navLinks } from "@/constants/navLinks";
 import Search from "./Search";
+
+import {
+  CheckLoginAction,
+  LogoutAction,
+} from "@/actions/authAction";
 
 type MobileNavigationProps = {
   isOpen: boolean;
 };
 
-export default function MobileNavigation({ isOpen }: MobileNavigationProps) {
+export default function MobileNavigation({
+  isOpen,
+}: MobileNavigationProps) {
   const pathname = usePathname();
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    CheckLoginAction()
+      .then(setIsLoggedIn)
+      .catch(() => setIsLoggedIn(false));
+  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  // انیمیشن ورود پله‌ای آیتم‌ها
+  // Staggered entrance animation for menu items
   const itemStyle = (index: number): React.CSSProperties => ({
     transitionDelay: isOpen ? `${120 + index * 55}ms` : "0ms",
   });
@@ -30,33 +52,27 @@ export default function MobileNavigation({ isOpen }: MobileNavigationProps) {
       id="mobile-menu"
       aria-hidden={!isOpen}
       style={{
-        clipPath: isOpen ? "inset(0 0 0 0 round 16px)" : "inset(0 0 100% 0 round 16px)",
+        clipPath: isOpen
+          ? "inset(0 0 0 0 round 16px)"
+          : "inset(0 0 100% 0 round 16px)",
       }}
-      className={`absolute inset-x-0 top-full mt-2 rounded-2xl border bg-background/95  shadow-2xl shadow-foreground/10 backdrop-blur-sm transition-[clip-path,opacity,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
+      className={`absolute inset-x-0 top-full mt-2 rounded-2xl border bg-background/95 shadow-2xl shadow-foreground/10 backdrop-blur-sm transition-[clip-path,opacity,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
         isOpen
           ? "visible border-border opacity-100"
           : "pointer-events-none invisible border-transparent opacity-0 delay-0"
       }`}
     >
       <nav
-        aria-label="منوی موبایل"
+        aria-label="Mobile navigation"
         className="max-h-[calc(100dvh-8rem)] space-y-4 overflow-y-auto p-4"
         inert={!isOpen}
       >
-        {/* جستجو */}
+        {/* Search */}
         <div className={itemClass} style={itemStyle(0)}>
-          {/* <Link
-            href="/search"
-            tabIndex={isOpen ? 0 : -1}
-            className="flex h-11 items-center gap-3 rounded-xl border border-border bg-card px-4 text-sm text-muted-foreground"
-          >
-            <FiSearch size={18} />
-            جستجو در محصولات...
-          </Link> */}
-          <Search/>
+          <Search />
         </div>
 
-        {/* لینک‌های منو */}
+        {/* Navigation links */}
         <ul className="space-y-1">
           {navLinks.map((link, i) => {
             const active = isActive(link.href);
@@ -102,16 +118,32 @@ export default function MobileNavigation({ isOpen }: MobileNavigationProps) {
           })}
         </ul>
 
-        {/* ورود و ثبت‌نام */}
-        <div className={itemClass} style={itemStyle(navLinks.length + 1)}>
-          <Link
-            href="/login"
-            tabIndex={isOpen ? 0 : -1}
-            className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary text-sm font-semibold text-primary-foreground shadow-md shadow-primary/25"
-          >
-            <FiUser size={18} />
-            ورود / ثبت‌نام
-          </Link>
+        {/* Login, Register or Logout */}
+        <div
+          className={itemClass}
+          style={itemStyle(navLinks.length + 1)}
+        >
+          {isLoggedIn === null ? null : isLoggedIn ? (
+            <form action={LogoutAction}>
+              <button
+                type="submit"
+                tabIndex={isOpen ? 0 : -1}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-destructive/30 bg-primary text-sm font-semibold text-primary-foreground shadow-md shadow-primary/25"
+              >
+                <FiLogOut size={18} />
+                Logout
+              </button>
+            </form>
+          ) : (
+            <Link
+              href="/login"
+              tabIndex={isOpen ? 0 : -1}
+              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary text-sm font-semibold text-primary-foreground shadow-md shadow-primary/25"
+            >
+              <FiUser size={18} />
+              Sign In / Register
+            </Link>
+          )}
         </div>
       </nav>
     </div>
