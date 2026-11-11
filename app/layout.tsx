@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   description: "توضیحات سایت",
 
   icons: {
-    icon: "/image/logo.webp",
-    shortcut: "/image/logo.webp",
-    apple: "/image/logo.webp",
+    icon: "/image/logo.WebP",
+    shortcut: "/image/logo.WebP",
+    apple: "/image/logo.WebP",
   },
 };
 
