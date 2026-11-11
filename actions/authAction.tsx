@@ -13,11 +13,10 @@ const validationSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email format"),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
-
 export const LoginAction = async (
   prevState: ActionTypeLogin,
   formData: FormData
-) => {
+): Promise<ActionTypeLogin> => {  
   // Extract form values
   const email = formData.get("email");
   const password = formData.get("password");
