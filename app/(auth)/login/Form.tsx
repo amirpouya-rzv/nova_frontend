@@ -3,7 +3,11 @@ import React from 'react';
 import { LoginAction } from "@/actions/authAction";
 import SubmitForm from "@/components/SubmitForm";
 import { useActionState } from "react";
+import { ActionTypeLogin } from '@/types/actionLogin';
+import Link from 'next/link';
 const Form = () => {
+
+const initialState: ActionTypeLogin = { errors: {}, success: false };
 
      const [state, fromAction] = useActionState(LoginAction, {
     errors: {},
@@ -104,12 +108,12 @@ const Form = () => {
           {/* Register */}
           <p className="text-center text-sm text-muted-foreground">
             Don't have an account?
-            <a
-              href="#"
+            <Link
+              href="/login"
               className="ml-1 font-bold text-primary hover:text-rose transition-colors"
             >
               Create account
-            </a>
+            </Link>
           </p>
         </div>
     );

@@ -1,7 +1,8 @@
 export type ActionTypeLogin = {
-  errors?: {
+  errors: {
     email?: string[];
     password?: string[];
+    general?: string[];
   };
   success: boolean;
 };
