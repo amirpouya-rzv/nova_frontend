@@ -14,8 +14,7 @@ const Form = () => {
   );
   return (
     <div>
-      <form action={fromAction} className="space-y-5">
-        {/* Email */}
+      <form action={formAction} className="space-y-5">
         <div className="space-y-2">
           <label htmlFor="email" className="text-sm font-semibold">
             Email Address
