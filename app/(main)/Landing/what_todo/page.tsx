@@ -7,7 +7,7 @@ const services = [
     title: "Fast & Reliable Delivery",
     description:
       "We deliver your orders quickly and safely right to your doorstep, anywhere in the country.",
-    image: "/image/product.webp",
+    image: "/image/ourproduct.webp",
     alt: "High-quality products from NOVA store",
     articleClass: "md:mx-20",
     imageClass: "lg:mx-20",
