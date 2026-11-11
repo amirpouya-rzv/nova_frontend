@@ -10,7 +10,7 @@ const SubmitForm = () => {
       <button
         type="submit"
         disabled={pending}
-        className="group disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden w-full h-13 rounded-xl bg-primary text-primary-foreground font-bold shadow-lg shadow-primary/20 transition-all duration-300 hover:bg-rose hover:shadow-rose/20 hover:-translate-y-1 active:translate-y-0"
+        className="group  disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed relative overflow-hidden w-full h-13 rounded-xl bg-primary text-primary-foreground font-bold shadow-lg shadow-primary/20 transition-all duration-300 hover:bg-rose hover:shadow-rose/20 hover:-translate-y-1 active:translate-y-0"
       >
         {pending ? (
           <ImSpinner9 className="mx-auto animate-spin text-xl disabled:cursor-copy" />

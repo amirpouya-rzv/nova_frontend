@@ -51,7 +51,7 @@ export default function Announcement() {
           type="button"
           onClick={closeBanner}
           aria-label="Close welcome message"
-          className="announcement-close absolute left-2 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 hover:rotate-90 hover:bg-primary-foreground/15"
+          className="announcement-close cursor-pointer absolute left-2 top-1/2 flex size-6 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 hover:rotate-90 hover:bg-primary-foreground/15"
         >
           <FiX size={14} />
         </button>

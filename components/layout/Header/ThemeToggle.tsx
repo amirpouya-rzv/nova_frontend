@@ -33,7 +33,7 @@ export default function ThemeToggle() {
       type="button"
       onClick={handleToggle}
       aria-label={isDark ? "تغییر به تم روشن" : "تغییر به تم تاریک"}
-      className="group relative flex size-10 items-center justify-center overflow-hidden rounded-xl border border-border bg-card/60 text-foreground transition-all hover:border-primary/50 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+      className="group relative cursor-pointer flex size-10 items-center justify-center overflow-hidden rounded-xl border border-border bg-card/60 text-foreground transition-all hover:border-primary/50 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
     >
       <FiSun
         size={18}

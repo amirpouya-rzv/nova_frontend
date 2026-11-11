@@ -16,7 +16,7 @@ const {open,setOpen, text,setText, results, loading, onSubmit, router, close} = 
 
   return (
     <>
-      <Button className="w-full" type="button" variant="outline" onClick={() => setOpen(true)}>
+      <Button className="w-full cursor-pointer" type="button" variant="outline" onClick={() => setOpen(true)}>
         <FiSearch size={16} />
         <span className="w-24 text-start">Search...</span>
         <kbd className="hidden lg:block rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[10px]">
