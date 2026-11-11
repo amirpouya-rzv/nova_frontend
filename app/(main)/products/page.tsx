@@ -5,7 +5,7 @@ import { PaginationProduct } from "./PaginationProduct";
 import ProductsSkeleton from "./ProductsSkeleton";
 
 export const metadata = {
-  title: "products",
+  title: "Products | NOVA",
   description: "products page",
 };
 

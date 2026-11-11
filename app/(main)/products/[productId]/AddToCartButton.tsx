@@ -55,7 +55,7 @@ const AddToCartButton = ({
           text-primary-foreground shadow-xl shadow-primary/20
           transition-all duration-300
           hover:-translate-y-1 hover:bg-primary
-          disabled:cursor-not-allowed disabled:opacity-60
+          disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer
         "
       >
         <FiShoppingCart className="mr-2" size={20} />

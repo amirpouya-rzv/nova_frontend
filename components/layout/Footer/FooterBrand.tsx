@@ -9,7 +9,7 @@ export default function FooterBrand() {
       <Link href="/" className="group inline-flex items-center gap-2.5">
          <span className="relative flex size-10 items-center justify-center rounded-xl bg-linear-to-br from-primary to-primary/60 text-lg font-extrabold text-primary-foreground shadow-md shadow-primary/30 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">
                <Image
-               src='/image/logo.webp'
+               src='/image/logo.WebP'
                alt="logo"
                width={100}
                height={100}/>

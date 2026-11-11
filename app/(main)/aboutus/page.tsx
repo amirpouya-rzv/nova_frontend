@@ -9,18 +9,9 @@ import AboutCTA from "./AboutCTA";
 
 
 export const metadata: Metadata = {
-  title: "About Us | NOVA - Discover Something New",
+  title: "About Us | NOVA",
   description:
     "Discover NOVA, an online shopping destination focused on quality products, a smooth shopping experience, and customer satisfaction.",
-
-  openGraph: {
-    title: "About Us | NOVA",
-    description:
-      "Learn more about NOVA and our approach to creating a better online shopping experience.",
-    type: "website",
-    siteName: "NOVA",
-  },
-
  
 };
 

@@ -8,10 +8,17 @@ import EmptyCart from "./EmptyCart";
 import CartList from "./CartList";
 import CartSummary from "./CartSummary";
 
+export const metadata = {
+  title: "Cart | NOVA",
+  description: "Cart page",
+};
 
 
 export default async function CartPage() {
   await connection();
+
+
+
 
   const cookieStore = await cookies();
   const token = cookieStore.get("logintoken")?.value;

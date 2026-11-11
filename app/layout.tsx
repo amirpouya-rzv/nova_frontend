@@ -13,6 +13,12 @@ const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 export const metadata: Metadata = {
   title: "NOVA",
   description: "توضیحات سایت",
+
+  icons: {
+    icon: "/image/logo.webp",
+    shortcut: "/image/logo.webp",
+    apple: "/image/logo.webp",
+  },
 };
 
 
