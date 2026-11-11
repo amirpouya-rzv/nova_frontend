@@ -1,7 +1,7 @@
-
 import Image from "next/image";
 import { CartItem } from "@/types/cart";
 import config from "@/services/config";
+import RemoveFromCartButton from "@/components/RemoveFromCartButton";
 
 type Props = {
   item: CartItem;
@@ -34,14 +34,16 @@ const CartItemCard = ({ item }: Props) => {
 
       {/* Product Info */}
       <div className="flex flex-1 flex-col justify-between">
-        <div>
-          <h2 className="font-semibold">
-            {item.product.name}
-          </h2>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h2 className="font-semibold">{item.product.name}</h2>
 
-          <p className="mt-2 text-sm text-muted-foreground">
-            {item.product.category?.name ?? "Uncategorized"}
-          </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {item.product.category?.name ?? "Uncategorized"}
+            </p>
+          </div>
+
+          <RemoveFromCartButton productId={item.product.id} />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3">

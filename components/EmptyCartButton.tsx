@@ -1,6 +1,6 @@
 "use client";
 
-import { removeFromCartAction } from "@/actions/cartAction";
+import { clearCartAction } from "@/actions/cartAction";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { FiTrash2 } from "react-icons/fi";
@@ -27,7 +27,7 @@ const EmptyCartButton = () => {
     setError("");
 
     startTransition(async () => {
-      const result = await removeFromCartAction();
+      const result = await clearCartAction();
 
       if (!result.success) {
         setError(result.message);
@@ -61,9 +61,7 @@ const EmptyCartButton = () => {
 
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>
-              ? Empty Shopping Cart
-            </AlertDialogTitle>
+            <AlertDialogTitle>Empty Shopping Cart?</AlertDialogTitle>
 
             <AlertDialogDescription>
               Are you sure you want to remove all products from your cart?
@@ -72,9 +70,7 @@ const EmptyCartButton = () => {
           </AlertDialogHeader>
 
           <AlertDialogFooter>
-            <AlertDialogCancel>
-              Cancel
-            </AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
 
             <AlertDialogAction
               onClick={handleEmptyCart}
